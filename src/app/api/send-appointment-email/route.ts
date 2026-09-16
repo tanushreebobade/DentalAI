@@ -21,12 +21,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    // check if Resend is configured
+    if (
+      !process.env.RESEND_API_KEY ||
+      process.env.RESEND_API_KEY === "re_..." ||
+      process.env.RESEND_API_KEY.startsWith("re_...")
+    ) {
+      console.warn("Skipping email send: RESEND_API_KEY is not configured.");
+      return NextResponse.json(
+        { message: "Email skipped: RESEND_API_KEY not configured", skipped: true },
+        { status: 200 }
+      );
+    }
+
     // send the email
-    // do not use this in prod, only for testing purposes
     const { data, error } = await resend.emails.send({
-      from: "DentWise <no-reply@resend.dev>",
+      from: "DentalAI <no-reply@resend.dev>",
       to: [userEmail],
-      subject: "Appointment Confirmation - DentWise",
+      subject: "Appointment Confirmation - DentalAI",
       react: AppointmentConfirmationEmail({
         doctorName,
         appointmentDate,
@@ -38,8 +50,8 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+      console.warn("Resend email warning:", error);
+      return NextResponse.json({ message: "Email failed to send", error }, { status: 200 });
     }
 
     return NextResponse.json(
@@ -47,7 +59,7 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Email sending error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    console.warn("Email sending error:", error);
+    return NextResponse.json({ message: "Internal error sending email", error }, { status: 200 });
   }
 }

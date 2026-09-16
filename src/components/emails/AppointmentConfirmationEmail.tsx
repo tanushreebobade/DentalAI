@@ -39,10 +39,10 @@ function AppointmentConfirmationEmail({
               src="https://i.ibb.co.com/tRy6cC2/logo.png"
               width="50"
               height="50"
-              alt="DentWise"
+              alt="DentalAI"
               style={logo}
             />
-            <Text style={logoText}>DentWise</Text>
+            <Text style={logoText}>DentalAI</Text>
           </Section>
 
           <Heading style={h1}>Appointment Confirmed! 🦷</Heading>
@@ -90,11 +90,11 @@ function AppointmentConfirmationEmail({
           <Text style={footer}>
             Best regards,
             <br />
-            The DentWise Team
+            The DentalAI Team
           </Text>
 
           <Text style={footerText}>
-            If you have any questions, please contact us at support@dentwise.com
+            If you have any questions, please contact us at support@dentalai.com
           </Text>
         </Container>
       </Body>

@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import { PricingTable } from "@clerk/nextjs";
+import CustomPricingTable from "@/components/pricing/CustomPricingTable";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { CrownIcon } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -49,7 +49,7 @@ async function ProPage() {
             </p>
           </div>
 
-          <PricingTable />
+          <CustomPricingTable />
         </div>
       </div>
     </>

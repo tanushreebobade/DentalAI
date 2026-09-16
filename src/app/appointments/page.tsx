@@ -71,9 +71,9 @@ function AppointmentsPage() {
               }),
             });
 
-            if (!emailResponse.ok) console.error("Failed to send confirmation email");
+            if (!emailResponse.ok) console.warn("Failed to send confirmation email");
           } catch (error) {
-            console.error("Error sending confirmation email:", error);
+            console.warn("Error sending confirmation email:", error);
           }
 
           // show the success modal
