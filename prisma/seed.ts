@@ -22,6 +22,7 @@ const sampleDoctors = [
     imageUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop",
     gender: Gender.MALE,
     isActive: true,
+  }
 ];
 async function main() {
   console.log("Seeding doctors...");
