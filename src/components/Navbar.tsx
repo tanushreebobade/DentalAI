@@ -23,7 +23,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center h-full">
         {/* LEFT: LOGO & NAV */}
         <div className="flex items-center gap-8">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
+          <Link href="/dashboard" className="flex items-center gap-0">
             <Image src="/logo.png" alt="DentalAI" width={32} height={32} className="w-8 h-8 rounded-md" />
             <span className="font-semibold text-base tracking-tight text-foreground">Dental<span className="text-accent-warm">AI</span></span>
           </Link>
@@ -36,11 +36,10 @@ function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                    isActive
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${isActive
                       ? "bg-muted text-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  }`}
+                    }`}
                 >
                   <Icon className="w-4 h-4 shrink-0" />
                   <span className="hidden sm:inline">{link.label}</span>

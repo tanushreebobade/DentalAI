@@ -22,17 +22,6 @@ const sampleDoctors = [
     imageUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop",
     gender: Gender.MALE,
     isActive: true,
-  },
-  {
-    name: "Dr. Priya Deshmukh",
-    email: "priya.deshmukh@dentalai.com",
-    phone: "+91 97654 32109",
-    speciality: "Pediatric Dentistry & Implants",
-    bio: "Focused on gentle dental care, preventive treatments, and comfortable procedures for patients of all ages.",
-    imageUrl: "https://images.unsplash.com/photo-1576495199011-eb5f3fa6f5d0?auto=format&fit=crop&q=80&w=300",
-    gender: Gender.FEMALE,
-    isActive: true,
-  },
 ];
 async function main() {
   console.log("Seeding doctors...");

@@ -9,7 +9,7 @@ function Header() {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 px-6 border-b border-border bg-background/90 backdrop-blur-md h-16 transition-colors">
       <div className="max-w-6xl mx-auto h-full flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center gap-1">
           <Image src="/logo.png" alt="DentalAI" width={32} height={32} className="w-8 h-8 rounded-md" />
           <span className="font-semibold text-base tracking-tight text-foreground">Dental<span className="text-accent-warm">AI</span></span>
         </Link>
