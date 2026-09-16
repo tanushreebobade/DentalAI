@@ -1,7 +1,7 @@
 "use client";
 
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CalendarIcon, CrownIcon, HomeIcon, MicIcon } from "lucide-react";
+import { CalendarIcon, HomeIcon, MicIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -50,15 +50,6 @@ function Navbar() {
             >
               <MicIcon className="w-4 h-4" />
               <span className="hidden md:inline">Voice</span>
-            </Link>
-            <Link
-              href="/pro"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                pathname === "/pro" ? "text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              <CrownIcon className="w-4 h-4" />
-              <span className="hidden md:inline">Pro</span>
             </Link>
           </div>
         </div>

@@ -1,6 +1,5 @@
 <h1 align="center">🦷 DentalAI – Dental Platform with AI Voice Agent 🦷</h1>
 
-![Demo App](/public/screenshot-for-readme.png)
 
 Highlights:
 
@@ -11,10 +10,7 @@ Highlights:
 - 🦷 3-Step Booking Flow (Dentist → Service & Time → Confirm)
 - 📩 Email Notifications for Bookings (Resend)
 - 📊 Admin Dashboard for Managing Appointments
-- 🗣️ AI Voice Agent powered by Vapi (Pro Plans only)
-- 💳 Subscription Payments with Clerk (Free + 2 Paid Plans)
-- 🧾 Automatic Invoices via Email
-- 💸 Smart Subscription Upgrades (pay only the difference)
+- 🗣️ AI Voice Agent powered by Vapi (Open to all authenticated users)
 - 📂 PostgreSQL for Data Persistence
 - 🎨 Styling with Tailwind CSS + Shadcn
 - ⚡ Data Fetching with TanStack Query

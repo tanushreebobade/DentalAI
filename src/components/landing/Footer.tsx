@@ -31,7 +31,7 @@ function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-foreground">
-                  Pricing
+                  Voice Assistant
                 </a>
               </li>
               <li>
