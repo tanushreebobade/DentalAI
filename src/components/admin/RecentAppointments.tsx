@@ -20,9 +20,11 @@ function RecentAppointments() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "CONFIRMED":
-        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Confirmed</Badge>;
+        return <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 hover:bg-blue-100">Confirmed</Badge>;
       case "COMPLETED":
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Completed</Badge>;
+        return <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 hover:bg-green-100">Completed</Badge>;
+      case "CANCELLED":
+        return <Badge variant="destructive">Cancelled</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -74,17 +76,32 @@ function RecentAppointments() {
                   </TableCell>
                   <TableCell>{appointment.reason}</TableCell>
                   <TableCell>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleToggleAppointmentStatus(appointment.id)}
-                      className="h-6 px-2"
-                    >
-                      {getStatusBadge(appointment.status)}
-                    </Button>
+                    <div className="space-y-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleToggleAppointmentStatus(appointment.id)}
+                        className="h-6 px-2"
+                        disabled={appointment.status === "CANCELLED"}
+                      >
+                        {getStatusBadge(appointment.status)}
+                      </Button>
+                      {appointment.status === "CANCELLED" && appointment.cancellationReason && (
+                        <div
+                          className="text-[11px] text-destructive/80 max-w-[180px] truncate"
+                          title={appointment.cancellationReason}
+                        >
+                          Reason: {appointment.cancellationReason}
+                        </div>
+                      )}
+                    </div>
                   </TableCell>
                   <TableCell className="text-right">
-                    <div className="text-xs text-muted-foreground">Click status to toggle</div>
+                    <div className="text-xs text-muted-foreground">
+                      {appointment.status === "CANCELLED"
+                        ? "Cancelled"
+                        : "Click status to toggle"}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

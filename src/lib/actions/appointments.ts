@@ -2,6 +2,8 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "../prisma";
+import resend from "../resend";
+import AppointmentCancellationEmail from "@/components/emails/AppointmentCancellationEmail";
 import { AppointmentStatus } from "@prisma/client";
 
 function transformAppointment(appointment: any) {
@@ -174,5 +176,79 @@ export async function updateAppointmentStatus(input: { id: string; status: Appoi
   } catch (error) {
     console.error("Error updating appointment:", error);
     throw new Error("Failed to update appointment");
+  }
+}
+
+export async function cancelAppointment(input: { id: string; reason: string }) {
+  try {
+    const { userId } = await auth();
+    if (!userId) throw new Error("You must be logged in to cancel an appointment");
+
+    const user = await prisma.user.findUnique({ where: { clerkId: userId } });
+    if (!user) throw new Error("User not found");
+
+    const appointment = await prisma.appointment.findUnique({
+      where: { id: input.id },
+      include: { user: true },
+    });
+
+    if (!appointment) throw new Error("Appointment not found");
+
+    // Check ownership or admin privilege
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const isOwner = appointment.userId === user.id;
+    const isAdmin = adminEmail && user.email === adminEmail;
+
+    if (!isOwner && !isAdmin) {
+      throw new Error("You are not authorized to cancel this appointment");
+    }
+
+    const updated = await prisma.appointment.update({
+      where: { id: input.id },
+      data: {
+        status: "CANCELLED",
+        cancellationReason: input.reason || "Cancelled by patient",
+      },
+      include: {
+        user: { select: { firstName: true, lastName: true, email: true } },
+        doctor: { select: { name: true, imageUrl: true } },
+      },
+    });
+
+    // Send cancellation email if Resend is configured
+    if (
+      process.env.RESEND_API_KEY &&
+      !process.env.RESEND_API_KEY.startsWith("re_...") &&
+      updated.user.email
+    ) {
+      try {
+        const appointmentDate = new Date(updated.date).toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        await resend.emails.send({
+          from: "DentalAI <no-reply@resend.dev>",
+          to: [updated.user.email],
+          subject: "Appointment Cancelled - DentalAI",
+          react: AppointmentCancellationEmail({
+            patientName: `${updated.user.firstName || ""} ${updated.user.lastName || ""}`.trim() || undefined,
+            doctorName: updated.doctor.name,
+            appointmentDate,
+            appointmentTime: updated.time,
+            cancellationReason: input.reason || "Cancelled by patient",
+          }),
+        });
+      } catch (emailErr) {
+        console.warn("Failed to send cancellation email:", emailErr);
+      }
+    }
+
+    return transformAppointment(updated);
+  } catch (error: any) {
+    console.error("Error cancelling appointment:", error);
+    throw new Error(error.message || "Failed to cancel appointment");
   }
 }

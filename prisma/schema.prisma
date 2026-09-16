@@ -56,10 +56,11 @@ model Appointment {
   time        String // store time as string i.e. 14:30
   duration    Int               @default(30) // duration in minutes
   status      AppointmentStatus @default(CONFIRMED)
-  notes       String?
-  reason      String? // reason for appointment - teeth cleaning? emergency visit? etc.
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  notes              String?
+  reason             String? // reason for appointment - teeth cleaning? emergency visit? etc.
+  cancellationReason String? // reason if cancelled by user or doctor
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
 
   // foreign keys
   userId String
@@ -81,4 +82,5 @@ enum Gender {
 enum AppointmentStatus {
  CONFIRMED
  COMPLETED
+ CANCELLED
 }
