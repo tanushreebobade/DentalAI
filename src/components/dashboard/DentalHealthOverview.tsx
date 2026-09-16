@@ -23,9 +23,6 @@ async function DentalHealthOverview() {
               Historical visits and active medical records
             </CardDescription>
           </div>
-          <span className="text-xs text-muted-foreground bg-muted px-2.5 py-1 rounded-md">
-            Verified Record
-          </span>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">

@@ -16,11 +16,7 @@ export default async function WelcomeSection() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2 max-w-2xl">
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-medium">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
-              Patient Portal
-            </span>
-            <span>•</span>
+
             <span className="flex items-center gap-1">
               <CalendarIcon className="size-3" />
               {format(new Date(), "EEEE, MMMM d, yyyy")}

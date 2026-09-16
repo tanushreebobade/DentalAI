@@ -34,15 +34,6 @@ async function NextAppointment() {
               <CalendarIcon className="size-4 text-primary" />
               Next Scheduled Visit
             </CardTitle>
-            <span
-              className={`text-xs font-medium px-2.5 py-0.5 rounded-full border ${
-                isToday
-                  ? "bg-primary/10 text-primary border-primary/20"
-                  : "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20"
-              }`}
-            >
-              {isToday ? "Today" : "Confirmed"}
-            </span>
           </div>
         </CardHeader>
 

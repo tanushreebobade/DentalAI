@@ -61,7 +61,8 @@ function VapiWidget() {
 
     const handleError = (error: any) => {
       console.log("Vapi Error", error);
-      alert("Vapi Connection Error: " + (error?.message || error || JSON.stringify(error)));
+      const errorMsg = error?.message || (typeof error === 'string' ? error : JSON.stringify(error));
+      alert("Vapi Connection Error: " + errorMsg);
       setConnecting(false);
       setCallActive(false);
     };
@@ -83,6 +84,9 @@ function VapiWidget() {
         .off("speech-end", handleSpeechEnd)
         .off("message", handleMessage)
         .off("error", handleError);
+      
+      // Stop the call when the user navigates away from the page
+      vapi.stop();
     };
   }, []);
 
@@ -105,7 +109,8 @@ function VapiWidget() {
         await vapi.start(assistantId);
       } catch (error: any) {
         console.log("Failed to start call", error);
-        alert("Failed to connect: " + (error?.message || error || "Check console for details"));
+        const errorMsg = error?.message || (typeof error === 'string' ? error : JSON.stringify(error));
+        alert("Failed to connect: " + errorMsg);
         setConnecting(false);
       }
     }

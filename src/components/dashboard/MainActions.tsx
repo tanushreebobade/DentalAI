@@ -14,9 +14,7 @@ export default function MainActions() {
               <div className="size-11 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
                 <MicIcon className="size-5" />
               </div>
-              <span className="text-xs font-medium text-accent-warm bg-accent-warm/10 border border-accent-warm/20 px-2.5 py-0.5 rounded-full">
-                Instant • 24/7
-              </span>
+
             </div>
 
             <div>
@@ -59,9 +57,7 @@ export default function MainActions() {
               <div className="size-11 rounded-lg bg-muted text-foreground flex items-center justify-center shrink-0 border border-border">
                 <CalendarIcon className="size-5" />
               </div>
-              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                Verified Doctors
-              </span>
+
             </div>
 
             <div>
