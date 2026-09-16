@@ -147,7 +147,7 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
 
           <Button
             onClick={handleSave}
-            className="bg-primary hover:bg-primary/90"
+            className="bg-primary hover:bg-primary-hover"
             disabled={
               !newDoctor.name ||
               !newDoctor.email ||

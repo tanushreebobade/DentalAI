@@ -30,25 +30,29 @@ function AdminDashboardClient() {
 
       <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
         {/* ADMIN WELCOME SECTION */}
-        <div className="mb-12 flex items-center justify-between bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-3xl p-8 border border-primary/20">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-primary">Admin Dashboard</span>
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-card rounded-xl p-6 sm:p-8 border border-border shadow-xs">
+          <div className="space-y-2 max-w-2xl">
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20 font-medium">
+                <span className="size-1.5 rounded-full bg-primary" />
+                Practice Administration
+              </span>
             </div>
-            <div>
-              <h1 className="text-4xl font-bold mb-2">
-                Welcome back, {user?.firstName || "Admin"}!
-              </h1>
-              <p className="text-muted-foreground">
-                Manage doctors, oversee appointments, and monitor your dental practice performance.
-              </p>
-            </div>
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
+              Welcome back, {user?.firstName || "Admin"}
+            </h1>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Manage clinical staff, oversee patient appointments, and monitor dental practice operations.
+            </p>
           </div>
 
-          <div className="hidden lg:block">
-            <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
-              <SettingsIcon className="w-16 h-16 text-primary" />
+          <div className="hidden sm:flex items-center gap-3 p-3 bg-muted/40 rounded-lg border border-border/70 text-xs text-muted-foreground shrink-0">
+            <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+              <SettingsIcon className="size-4" />
+            </div>
+            <div>
+              <p className="font-medium text-foreground">Dental Practice Ops</p>
+              <p className="text-[11px] text-muted-foreground">Active Admin Session</p>
             </div>
           </div>
         </div>

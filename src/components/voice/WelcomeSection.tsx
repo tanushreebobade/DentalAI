@@ -1,28 +1,31 @@
-import { MicIcon } from "lucide-react";
+import { MicIcon, ShieldCheckIcon } from "lucide-react";
 
 function WelcomeSection() {
   return (
-    <div className="z-10 flex items-center justify-between bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-3xl p-8 border border-primary/20 mb-12 overflow-hidden">
-      <div className="space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          <span className="text-sm font-medium text-primary">Voice Assistant Ready</span>
-        </div>
-        <div>
-          <h1 className="text-4xl font-bold mb-2">AI Voice Assistant</h1>
-          <p className="text-muted-foreground">
-            Talk to your AI dental assistant using natural voice commands. Get instant advice and
-            professional guidance.
+    <div className="bg-card border border-border rounded-xl p-6 sm:p-8 shadow-xs mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-2 max-w-2xl">
+          <div className="inline-flex items-center gap-1.5 text-xs font-medium text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
+            <MicIcon className="size-3" />
+            <span>Clinical Audio Consultation</span>
+          </div>
+
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
+            Voice Consultation Console
+          </h1>
+
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Speak directly with Riley to discuss toothache pain, sensitivity, post-treatment symptoms, or procedure costs. Real-time guidance is provided for triage and home comfort.
           </p>
         </div>
-      </div>
 
-      <div className="hidden lg:block">
-        <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
-          <MicIcon className="w-16 h-16 text-primary" />
+        <div className="hidden sm:flex items-center gap-2 p-3 bg-muted/40 rounded-lg border border-border/70 text-xs text-muted-foreground shrink-0">
+          <ShieldCheckIcon className="size-4 text-emerald-600 dark:text-emerald-400" />
+          <span>Private & Encrypted Session</span>
         </div>
       </div>
     </div>
   );
 }
+
 export default WelcomeSection;

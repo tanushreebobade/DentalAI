@@ -1,143 +1,96 @@
 import { SignUpButton } from "@clerk/nextjs";
-import { ArrowRightIcon, ZapIcon } from "lucide-react";
-import Image from "next/image";
+import { ArrowRightIcon, CalendarIcon, FileTextIcon, MicIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 function HowItWorks() {
+  const steps = [
+    {
+
+      icon: MicIcon,
+      title: "Tell us what's wrong",
+      description:
+        "Just describe what you're feeling — a sore tooth, bleeding gums, whatever it is. Riley will listen and help you figure out what to do next.",
+      tag: "Quick answers",
+    },
+    {
+
+      icon: FileTextIcon,
+      title: "Get clear advice",
+      description:
+        "Find out if it's something you can handle at home or if you should see a dentist soon. No confusing medical jargon — just straightforward guidance.",
+      tag: "Easy to understand",
+    },
+    {
+
+      icon: CalendarIcon,
+      title: "Book your dentist",
+      description:
+        "Pick a dentist that works for you, choose a time slot, and you're done. You'll get an email confirmation right away.",
+      tag: "Hassle-free booking",
+    },
+  ];
+
   return (
-    <section className="relative py-32 px-6 outline-hidden z-10 max-w-7xl mx-auto">
-      {/* HEADER */}
-      <div className="text-center mb-20">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 rounded-full border border-primary/10 backdrop-blur-sm mb-6">
-          <ZapIcon className="size-4 text-primary" />
-          <span className="text-sm font-medium text-primary">Simple Process</span>
+    <section id="how-it-works" className="py-20 md:py-28 px-6 border-t border-border bg-muted/20">
+      <div className="max-w-6xl mx-auto">
+        {/* HEADER */}
+        <div className="max-w-2xl mx-auto text-center mb-16 space-y-3">
+
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
+            How DentalAI works
+          </h2>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            From your first concern to a confirmed appointment — it's as simple as three steps.
+          </p>
         </div>
 
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-          <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Three steps to
-          </span>
-          <br />
-          <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-            better dental health
-          </span>
-        </h2>
+        {/* STEPS GRID */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <div
+                key={step.title}
 
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Our streamlined process makes dental care accessible, convenient, and stress-free for
-          everyone
-        </p>
-      </div>
+                className="bg-card border border-border rounded-xl p-6 shadow-xs hover:border-border/80 transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="size-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/15">
+                      <Icon className="size-5" />
+                    </div>
+                    <span className="text-sm font-semibold text-muted-foreground font-mono">
 
-      {/* STEPS */}
-      <div className="relative">
-        {/* CONNECTION LINE */}
-        <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent transform -translate-y-1/2 hidden lg:block"></div>
+                    </span>
+                  </div>
 
-        <div className="grid lg:grid-cols-3 gap-12 lg:gap-8">
-          {/* STEP 1 */}
-          <div className="relative group">
-            <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl rounded-3xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-              {/* Step Number */}
-              <div className="absolute -top-4 left-8 w-8 h-8 bg-gradient-to-r from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold shadow-lg">
-                1
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-border/60">
+                  <span className="inline-block text-xs font-medium text-foreground/80 bg-muted px-2.5 py-1 rounded-md">
+                    {step.tag}
+                  </span>
+                </div>
               </div>
-
-              {/* Icon */}
-              <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 mb-6">
-                <Image src="/audio.png" alt="Voice Chat" width={40} height={40} className="w-14" />
-              </div>
-
-              <h3 className="text-2xl font-bold mb-4 text-center">Ask Questions</h3>
-              <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                Chat with our AI assistant about any dental concerns. Get instant answers about
-                symptoms, treatments, and oral health tips.
-              </p>
-
-              {/* Feature Pills */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                  24/7 Available
-                </span>
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                  Instant Response
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* STEP 2 */}
-          <div className="relative group">
-            <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl rounded-3xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-              {/* Step Number */}
-              <div className="absolute -top-4 left-8 w-8 h-8 bg-gradient-to-r from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold shadow-lg">
-                2
-              </div>
-
-              {/* Icon */}
-              <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 mb-6">
-                <Image src="/brain.png" alt="AI Brain" width={40} height={40} className="w-14" />
-              </div>
-
-              <h3 className="text-2xl font-bold mb-4 text-center">Get Expert Advice</h3>
-              <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                Receive personalized recommendations based on thousands of dental cases. Our AI
-                provides professional-grade insights.
-              </p>
-
-              {/* Feature Pills */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                  AI-Powered
-                </span>
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                  Personalized
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* STEP 3  */}
-          <div className="relative group">
-            <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl rounded-3xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-              {/* Step Number */}
-              <div className="absolute -top-4 left-8 w-8 h-8 bg-gradient-to-r from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground text-sm font-bold shadow-lg">
-                3
-              </div>
-
-              {/* Icon */}
-              <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 mb-6">
-                <Image src="/calendar.png" alt="Calendar" width={40} height={40} className="w-14" />
-              </div>
-
-              <h3 className="text-2xl font-bold mb-4 text-center">Book & Get Care</h3>
-              <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                Schedule with verified dentists and receive comprehensive follow-up care. Track your
-                progress seamlessly.
-              </p>
-
-              {/* Feature Pills */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                  Verified Doctors
-                </span>
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                  Follow-up Care
-                </span>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
-      </div>
 
-      {/* BOTTOM CTA */}
-      <div className="text-center mt-16">
-        <SignUpButton mode="modal">
-          <Button size="lg">
-            <ArrowRightIcon className="mr-2 size-5" />
-            Get started now
-          </Button>
-        </SignUpButton>
+        {/* BOTTOM CTA */}
+        <div className="text-center mt-12">
+          <SignUpButton mode="modal">
+            <Button size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground font-medium px-6 py-2.5 h-auto shadow-xs">
+              Start a Free Consultation
+              <ArrowRightIcon className="ml-2 size-4" />
+            </Button>
+          </SignUpButton>
+        </div>
       </div>
     </section>
   );

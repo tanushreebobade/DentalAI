@@ -8,17 +8,17 @@ function DoctorInfo({ doctorId }: { doctorId: string }) {
   if (!doctor) return null;
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-3.5">
       <Image
         src={doctor.imageUrl!}
         alt={doctor.name}
         width={48}
         height={48}
-        className="w-12 h-12 rounded-full object-cover"
+        className="size-12 rounded-full object-cover border border-border bg-muted shrink-0"
       />
       <div>
-        <h3 className="font-medium">{doctor.name}</h3>
-        <p className="text-sm text-muted-foreground">{doctor.speciality || "General Dentistry"}</p>
+        <h3 className="font-semibold text-sm text-foreground">{doctor.name}</h3>
+        <p className="text-xs text-primary font-medium">{doctor.speciality || "General Dentistry"}</p>
       </div>
     </div>
   );

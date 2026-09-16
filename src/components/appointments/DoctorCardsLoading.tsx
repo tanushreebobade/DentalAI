@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function DoctorCardSkeleton() {
   return (
-    <Card className="cursor-pointer transition-all hover:shadow-lg">
+    <Card className="border border-border rounded-xl shadow-xs bg-card">
       <CardHeader className="pb-4">
         <div className="flex items-start gap-4">
           <Skeleton className="w-16 h-16 rounded-full" />

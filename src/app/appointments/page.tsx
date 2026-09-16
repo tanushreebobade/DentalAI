@@ -104,8 +104,12 @@ function AppointmentsPage() {
       <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
         {/* header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Book an Appointment</h1>
-          <p className="text-muted-foreground">Find and book with verified dentists in your area</p>
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
+            Clinic Appointments
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Find and schedule visits with licensed dentists in your area.
+          </p>
         </div>
 
         <ProgressSteps currentStep={currentStep} />
@@ -161,91 +165,97 @@ function AppointmentsPage() {
 
       {/* SHOW EXISTING APPOINTMENTS FOR THE CURRENT USER */}
       {userAppointments.length > 0 && (
-        <div className="mb-8 max-w-7xl mx-auto px-6 py-8">
-          <h2 className="text-xl font-semibold mb-4">Your Appointments</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {userAppointments.map((appointment) => (
-              <div
-                key={appointment.id}
-                className={`bg-card border rounded-xl p-5 shadow-sm flex flex-col justify-between transition-all ${
-                  appointment.status === "CANCELLED" ? "opacity-75 border-destructive/20" : ""
-                }`}
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="size-10 bg-primary/10 rounded-full flex items-center justify-center overflow-hidden shrink-0">
-                        <img
-                          src={appointment.doctorImageUrl}
-                          alt={appointment.doctorName}
-                          className="size-10 rounded-full object-cover"
-                        />
+        <div className="mb-12 max-w-7xl mx-auto px-6">
+          <div className="border-t border-border pt-8">
+            <h2 className="text-lg font-semibold text-foreground mb-4">Your Active & Past Appointments</h2>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {userAppointments.map((appointment) => (
+                <div
+                  key={appointment.id}
+                  className={`bg-card border rounded-xl p-5 shadow-xs flex flex-col justify-between transition-all ${
+                    appointment.status === "CANCELLED" ? "opacity-75 border-destructive/20 bg-muted/20" : "border-border"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="size-10 rounded-full flex items-center justify-center overflow-hidden shrink-0 border border-border bg-muted">
+                          <img
+                            src={appointment.doctorImageUrl}
+                            alt={appointment.doctorName}
+                            className="size-10 rounded-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm text-foreground">{appointment.doctorName}</p>
+                          <p className="text-muted-foreground text-xs">{appointment.reason || "General Consultation"}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium text-sm">{appointment.doctorName}</p>
-                        <p className="text-muted-foreground text-xs">{appointment.reason}</p>
-                      </div>
+
+                      {/* Status Badge */}
+                      {appointment.status === "CONFIRMED" && (
+                        <Badge className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20 text-xs font-medium">
+                          Confirmed
+                        </Badge>
+                      )}
+                      {appointment.status === "COMPLETED" && (
+                        <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-xs font-medium">
+                          Completed
+                        </Badge>
+                      )}
+                      {appointment.status === "CANCELLED" && (
+                        <Badge variant="destructive" className="text-xs font-medium">
+                          Cancelled
+                        </Badge>
+                      )}
                     </div>
 
-                    {/* Status Badge */}
-                    {appointment.status === "CONFIRMED" && (
-                      <Badge className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 text-xs">
-                        Confirmed
-                      </Badge>
-                    )}
-                    {appointment.status === "COMPLETED" && (
-                      <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs">
-                        Completed
-                      </Badge>
-                    )}
-                    {appointment.status === "CANCELLED" && (
-                      <Badge variant="destructive" className="text-xs">
-                        Cancelled
-                      </Badge>
+                    <div className="space-y-1 text-xs text-muted-foreground pt-1">
+                      <p className="flex items-center gap-1.5">
+                        <span className="font-medium text-foreground">Date:</span>
+                        {format(new Date(appointment.date), "MMM d, yyyy")}
+                      </p>
+                      <p className="flex items-center gap-1.5">
+                        <span className="font-medium text-foreground">Time:</span>
+                        {appointment.time}
+                      </p>
+                    </div>
+
+                    {/* Show cancellation reason if cancelled */}
+                    {appointment.status === "CANCELLED" && appointment.cancellationReason && (
+                      <div className="mt-3 p-2.5 rounded-lg bg-destructive/5 border border-destructive/15 text-xs">
+                        <span className="font-semibold text-destructive">Cancellation Reason:</span>{" "}
+                        <span className="text-muted-foreground">{appointment.cancellationReason}</span>
+                      </div>
                     )}
                   </div>
 
-                  <div className="space-y-1.5 text-sm">
-                    <p className="text-muted-foreground">
-                      📅 {format(new Date(appointment.date), "MMM d, yyyy")}
-                    </p>
-                    <p className="text-muted-foreground">🕐 {appointment.time}</p>
-                  </div>
-
-                  {/* Show cancellation reason if cancelled */}
-                  {appointment.status === "CANCELLED" && appointment.cancellationReason && (
-                    <div className="mt-3 p-2.5 rounded-lg bg-destructive/5 border border-destructive/15 text-xs">
-                      <span className="font-semibold text-destructive">Cancellation Reason:</span>{" "}
-                      <span className="text-muted-foreground">{appointment.cancellationReason}</span>
+                  {/* Cancel Action Button */}
+                  {appointment.status === "CONFIRMED" && (
+                    <div className="mt-4 pt-3 border-t border-border/70">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full text-destructive border-destructive/30 hover:bg-destructive/10 hover:text-destructive text-xs h-8"
+                        onClick={() => {
+                          setCancellingAppointment({
+                            id: appointment.id,
+                            doctorName: appointment.doctorName,
+                            date: format(new Date(appointment.date), "MMM d, yyyy"),
+                            time: appointment.time,
+                            reason: appointment.reason,
+                          });
+                          setShowCancelModal(true);
+                        }}
+                      >
+                        <XCircleIcon className="w-3.5 h-3.5 mr-1.5" />
+                        Cancel Appointment
+                      </Button>
                     </div>
                   )}
                 </div>
-
-                {/* Cancel Action Button */}
-                {appointment.status === "CONFIRMED" && (
-                  <div className="mt-4 pt-3 border-t">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full text-destructive border-destructive/30 hover:bg-destructive/10 hover:text-destructive text-xs h-8"
-                      onClick={() => {
-                        setCancellingAppointment({
-                          id: appointment.id,
-                          doctorName: appointment.doctorName,
-                          date: format(new Date(appointment.date), "MMM d, yyyy"),
-                          time: appointment.time,
-                          reason: appointment.reason,
-                        });
-                        setShowCancelModal(true);
-                      }}
-                    >
-                      <XCircleIcon className="w-3.5 h-3.5 mr-1.5" />
-                      Cancel Appointment
-                    </Button>
-                  </div>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       )}

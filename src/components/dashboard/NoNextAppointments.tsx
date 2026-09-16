@@ -5,24 +5,31 @@ import { Button } from "../ui/button";
 
 function NoNextAppointments() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <CalendarIcon className="size-5 text-primary" />
-          Next Appointment
+    <Card className="border border-border rounded-xl shadow-xs bg-card flex flex-col justify-between">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-base font-semibold flex items-center gap-2 text-foreground">
+          <CalendarIcon className="size-4 text-primary" />
+          Next Scheduled Visit
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="text-center py-8 text-muted-foreground">
-          <div className="w-16 h-16 bg-muted/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <CalendarIcon className="size-8 opacity-50" />
+      <CardContent className="py-6">
+        <div className="text-center space-y-3">
+          <div className="size-10 bg-muted rounded-full flex items-center justify-center mx-auto text-muted-foreground">
+            <CalendarIcon className="size-5" />
           </div>
-          <p className="text-sm mb-3">No upcoming appointments</p>
-          <Link href="/appointments">
-            <Button size="sm" variant="outline" className="w-full">
-              Schedule Your Next Visit
-            </Button>
-          </Link>
+          <div>
+            <p className="text-sm font-medium text-foreground">No upcoming visits</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              You currently have no scheduled appointments.
+            </p>
+          </div>
+          <div className="pt-2">
+            <Link href="/appointments">
+              <Button size="sm" variant="outline" className="w-full text-xs font-medium border-border hover:bg-muted">
+                Schedule a Visit
+              </Button>
+            </Link>
+          </div>
         </div>
       </CardContent>
     </Card>

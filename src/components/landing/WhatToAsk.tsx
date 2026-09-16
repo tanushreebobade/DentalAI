@@ -1,145 +1,126 @@
-import { MessageCircleIcon, MessageSquareIcon } from "lucide-react";
-import Image from "next/image";
+import { AlertCircleIcon, CheckCircleIcon, ClockIcon, HelpCircleIcon, MessageSquareIcon, ShieldAlertIcon } from "lucide-react";
+import { SignUpButton } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 function WhatToAsk() {
+  const commonInquiries = [
+    {
+      question: "It hurts when I bite down or chew",
+      concern: "Could be a cracked tooth, cavity, or inflamed nerve",
+      urgency: "See a dentist soon",
+      urgencyColor: "text-accent-warm bg-accent-warm/10 border-accent-warm/20",
+      guidance: "Try not to chew on that side for now. Over-the-counter pain relief can help — but book an appointment within a day or two.",
+    },
+    {
+      question: "My gums bleed when I brush or floss",
+      concern: "Usually early gum disease or plaque buildup",
+      urgency: "Worth a checkup",
+      urgencyColor: "text-blue-600 bg-blue-500/10 border-blue-500/20 dark:text-blue-400",
+      guidance: "Keep brushing gently with a soft toothbrush and don't skip flossing. A professional cleaning can make a big difference.",
+    },
+    {
+      question: "My face is swollen and I have a fever",
+      concern: "Likely a dental abscess or spreading infection",
+      urgency: "Go now — this is urgent",
+      urgencyColor: "text-red-600 bg-red-500/10 border-red-500/20 dark:text-red-400",
+      guidance: "Don't wait on this one. Skip hot compresses and head to a dentist or emergency room as soon as possible.",
+    },
+  ];
+
   return (
-    <section className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-background to-muted/20">
-      <div className="relative z-10 max-w-7xl mx-auto">
+    <section id="triage-guide" className="py-20 md:py-28 px-6 border-t border-border bg-background">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 rounded-full border border-primary/10 backdrop-blur-sm mb-6">
-            <MessageCircleIcon className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">AI-Powered Conversations</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Ask about
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              anything dental
-            </span>
+        <div className="max-w-2xl mx-auto text-center mb-16 space-y-3">
+
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
+            What people ask about most
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            From simple questions to complex concerns, our AI delivers expert-level guidance trained
-            on thousands of real dental cases
+          <p className="text-base text-muted-foreground leading-relaxed">
+            Not sure if your symptoms are serious? Here are the kinds of things Riley helps with every day.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left Side - Interactive Chat Examples */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold mb-8">Common questions our AI answers:</h3>
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          {/* Left Side - Clinical Case Inquiries */}
+          <div className="lg:col-span-7 space-y-4">
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+              Real Questions, Real Answers
+            </h3>
 
-              {/* Chat Bubble 1 */}
-              <div className="group relative">
-                <div className="bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shrink-0">
-                      <MessageSquareIcon className="h-6 w-6 text-primary" />
+            {commonInquiries.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-card border border-border rounded-xl p-5 shadow-xs space-y-3 transition-all hover:border-border/80"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <div className="size-8 rounded-lg bg-muted text-foreground flex items-center justify-center shrink-0 mt-0.5">
+                      <HelpCircleIcon className="size-4" />
                     </div>
-                    <div className="space-y-3 flex-1">
-                      <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10">
-                        <p className="font-semibold text-primary">
-                          "My tooth hurts when I bite down"
-                        </p>
-                      </div>
-                      <div className="bg-muted/30 rounded-2xl p-4">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          Get immediate advice on pain management, possible causes, and when to see
-                          a dentist urgently
-                        </p>
-                        <div className="flex gap-2 mt-3">
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                            Instant Response
-                          </span>
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                            Pain Relief
-                          </span>
-                        </div>
-                      </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-foreground">{item.question}</h4>
+                      <p className="text-xs text-muted-foreground mt-0.5">Possible cause: {item.concern}</p>
                     </div>
                   </div>
+                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border shrink-0 ${item.urgencyColor}`}>
+                    {item.urgency}
+                  </span>
                 </div>
-              </div>
 
-              {/* Chat Bubble 2 */}
-              <div className="group relative">
-                <div className="bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shrink-0">
-                      <MessageSquareIcon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="space-y-3 flex-1">
-                      <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10">
-                        <p className="font-semibold text-primary">
-                          "How much does teeth whitening cost?"
-                        </p>
-                      </div>
-                      <div className="bg-muted/30 rounded-2xl p-4">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          Compare treatment options, pricing ranges, and find the best whitening
-                          solution for your budget
-                        </p>
-                        <div className="flex gap-2 mt-3">
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                            Cost Analysis
-                          </span>
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                            Treatment Options
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="text-xs text-muted-foreground bg-muted/40 p-3 rounded-lg border border-border/50 leading-relaxed">
+                  <span className="font-medium text-foreground">Riley's advice: </span>
+                  {item.guidance}
                 </div>
               </div>
-
-              {/* Chat Bubble 3 */}
-              <div className="group relative">
-                <div className="bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl rounded-3xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex items-center justify-center shrink-0">
-                      <MessageSquareIcon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="space-y-3 flex-1">
-                      <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10">
-                        <p className="font-semibold text-primary">
-                          "When should I replace my filling?"
-                        </p>
-                      </div>
-                      <div className="bg-muted/30 rounded-2xl p-4">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          Learn about filling lifespan, warning signs of wear, and replacement
-                          timing guidance
-                        </p>
-                        <div className="flex gap-2 mt-3">
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                            Preventive Care
-                          </span>
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                            Maintenance
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Right Side - AI Illustration */}
-          <div className="bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl rounded-3xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-500">
-            <div className="flex items-center justify-center h-full">
-              <Image
-                src="/confused.png"
-                alt="AI Assistant"
-                width={500}
-                height={500}
-                className="w-full h-auto max-w-lg object-contain"
-              />
+          {/* Right Side - Triage Urgency Protocol Card */}
+          <div className="lg:col-span-5">
+            <div className="bg-card border border-border rounded-xl shadow-xs p-6 space-y-5">
+              <div className="flex items-center gap-2.5 pb-4 border-b border-border">
+                <ShieldAlertIcon className="size-5 text-primary" />
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground">How we prioritize your care</h3>
+                  <p className="text-xs text-muted-foreground">The levels Riley uses to assess your situation</p>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-xs">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-border">
+                  <span className="size-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                  <div>
+                    <span className="font-semibold text-foreground block">Routine</span>
+                    <p className="text-muted-foreground mt-0.5">Regular cleanings, mild sensitivity, routine checkups.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-border">
+                  <span className="size-2 rounded-full bg-yellow-500 mt-1.5 shrink-0" />
+                  <div>
+                    <span className="font-semibold text-foreground block">Needs attention soon</span>
+                    <p className="text-muted-foreground mt-0.5">Ongoing toothache, a loose filling, or a chipped tooth.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-border">
+                  <span className="size-2 rounded-full bg-red-500 mt-1.5 shrink-0" />
+                  <div>
+                    <span className="font-semibold text-foreground block">Get help right away</span>
+                    <p className="text-muted-foreground mt-0.5">Swelling in your face, heavy bleeding, or a knocked-out tooth.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-border">
+                <SignUpButton mode="modal">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium py-2 h-auto shadow-xs">
+                    <MessageSquareIcon className="mr-2 size-3.5" />
+                    Talk to Riley Now
+                  </Button>
+                </SignUpButton>
+              </div>
             </div>
           </div>
         </div>
@@ -147,4 +128,5 @@ function WhatToAsk() {
     </section>
   );
 }
+
 export default WhatToAsk;

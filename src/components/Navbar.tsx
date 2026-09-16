@@ -6,71 +6,68 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { ThemeToggle } from "./ThemeToggle";
+
 function Navbar() {
   const { user } = useUser();
   const pathname = usePathname();
 
+  const navLinks = [
+    { href: "/dashboard", label: "Dashboard", icon: HomeIcon },
+    { href: "/appointments", label: "Appointments", icon: CalendarIcon },
+    { href: "/voice", label: "Voice Consultation", icon: MicIcon },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-2 border-b border-border/50 bg-background/80 backdrop-blur-md h-16">
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 border-b border-border bg-background/90 backdrop-blur-md h-16 transition-colors">
       <div className="max-w-7xl mx-auto flex justify-between items-center h-full">
-        {/* LOGO */}
+        {/* LEFT: LOGO & NAV */}
         <div className="flex items-center gap-8">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="DentalAI Logo" width={32} height={32} className="w-11" />
+          <Link href="/dashboard" className="flex items-center gap-2.5">
+            <Image src="/logo.png" alt="DentalAI" width={32} height={32} className="w-8 h-8 rounded-md" />
+            <span className="font-semibold text-base tracking-tight text-foreground">Dental<span className="text-accent-warm">AI</span></span>
           </Link>
 
-          <div className="flex items-center gap-6">
-            <Link
-              href="/dashboard"
-              className={`flex items-center gap-2 transition-colors ${
-                pathname === "/dashboard"
-                  ? "text-foreground hover:text-primary font-medium"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <HomeIcon className="w-4 h-4" />
-              <span className="hidden md:inline">Dashboard</span>
-            </Link>
-
-            <Link
-              href="/appointments"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                pathname === "/appointments" ? "text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              <CalendarIcon className="w-4 h-4" />
-              <span className="hidden md:inline">Appointments</span>
-            </Link>
-
-            <Link
-              href="/voice"
-              className={`flex items-center gap-2 transition-colors hover:text-foreground ${
-                pathname === "/voice" ? "text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              <MicIcon className="w-4 h-4" />
-              <span className="hidden md:inline">Voice</span>
-            </Link>
-          </div>
+          <nav className="flex items-center gap-1 sm:gap-2">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span className="hidden sm:inline">{link.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
         </div>
 
-        {/* RIGHT SECTION */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="hidden lg:flex flex-col items-end">
-              <span className="text-sm font-medium text-foreground">
-                {user?.firstName} {user?.lastName}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                {user?.emailAddresses?.[0]?.emailAddress}
-              </span>
-            </div>
+        {/* RIGHT: THEME TOGGLE & PATIENT USER PROFILE */}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
 
-            <UserButton />
+          <div className="hidden sm:flex flex-col items-end leading-tight text-right">
+            <span className="text-sm font-semibold text-foreground">
+              {user?.firstName ? `${user.firstName} ${user?.lastName || ""}`.trim() : "Patient"}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {user?.emailAddresses?.[0]?.emailAddress}
+            </span>
           </div>
+
+          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
-    </nav>
+    </header>
   );
 }
+
 export default Navbar;

@@ -1,7 +1,7 @@
 import { getUserAppointmentStats } from "@/lib/actions/appointments";
 import { currentUser } from "@clerk/nextjs/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { BrainIcon, MessageSquareIcon } from "lucide-react";
+import { ActivityIcon, CalendarIcon, ClipboardCheckIcon, MicIcon } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -11,59 +11,70 @@ async function DentalHealthOverview() {
   const user = await currentUser();
 
   return (
-    <Card className="lg:col-span-2">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <BrainIcon className="size-5 text-primary" />
-          Your Dental Health
-        </CardTitle>
-        <CardDescription>Keep track of your dental care journey</CardDescription>
+    <Card className="lg:col-span-2 border border-border rounded-xl shadow-xs bg-card">
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="text-base font-semibold flex items-center gap-2 text-foreground">
+              <ClipboardCheckIcon className="size-4 text-primary" />
+              Patient Care Summary
+            </CardTitle>
+            <CardDescription className="text-xs text-muted-foreground mt-0.5">
+              Historical visits and active medical records
+            </CardDescription>
+          </div>
+          <span className="text-xs text-muted-foreground bg-muted px-2.5 py-1 rounded-md">
+            Verified Record
+          </span>
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="text-center p-4 bg-muted/30 rounded-xl">
-            <div className="text-2xl font-bold text-primary mb-1">
+      <CardContent className="space-y-6">
+        {/* STATS TILES */}
+        <div className="grid grid-cols-3 gap-4">
+          <div className="p-4 bg-muted/30 border border-border/70 rounded-lg text-left">
+            <span className="text-xs font-medium text-muted-foreground block mb-1">Completed Visits</span>
+            <span className="text-2xl font-semibold text-foreground tracking-tight">
               {appointmentStats.completedAppointments}
-            </div>
-            <div className="text-sm text-muted-foreground">Completed Visits</div>
+            </span>
           </div>
-          <div className="text-center p-4 bg-muted/30 rounded-xl">
-            <div className="text-2xl font-bold text-primary mb-1">
+          <div className="p-4 bg-muted/30 border border-border/70 rounded-lg text-left">
+            <span className="text-xs font-medium text-muted-foreground block mb-1">Total Bookings</span>
+            <span className="text-2xl font-semibold text-foreground tracking-tight">
               {appointmentStats.totalAppointments}
-            </div>
-            <div className="text-sm text-muted-foreground">Total Appointments</div>
+            </span>
           </div>
-          <div className="text-center p-4 bg-muted/30 rounded-xl">
-            <div className="text-2xl font-bold text-primary mb-1">
+          <div className="p-4 bg-muted/30 border border-border/70 rounded-lg text-left">
+            <span className="text-xs font-medium text-muted-foreground block mb-1">Member Since</span>
+            <span className="text-lg font-semibold text-foreground tracking-tight">
               {user?.createdAt ? format(new Date(user.createdAt), "MMM yyyy") : "Recent"}
-            </div>
-            <div className="text-sm text-muted-foreground">Member Since</div>
+            </span>
           </div>
         </div>
 
-        <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20">
-          <div className="flex items-start gap-3">
-            <div className="size-10 bg-primary/20 rounded-lg flex items-center justify-center shrink-0">
-              <MessageSquareIcon className="size-5 text-primary" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-primary mb-1">Ready to get started?</h4>
-              <p className="text-sm text-muted-foreground mb-3">
-                Book your first appointment or try our AI voice assistant for instant dental advice.
-              </p>
-              <div className="flex gap-2">
-                <Link href="/voice">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90">
-                    Try AI Assistant
-                  </Button>
-                </Link>
-                <Link href="/appointments">
-                  <Button size="sm" variant="outline">
-                    Book Appointment
-                  </Button>
-                </Link>
-              </div>
-            </div>
+        {/* CLINIC CARE BANNER */}
+        <div className="p-4 bg-muted/40 rounded-lg border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <ActivityIcon className="size-4 text-primary" />
+              Need a preventive routine cleaning?
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Dental associations recommend professional checkups every 6 months to maintain optimal gum health.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <Link href="/appointments">
+              <Button size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground font-medium text-xs h-8 px-3 shadow-xs">
+                <CalendarIcon className="mr-1.5 size-3.5" />
+                Book Cleaning
+              </Button>
+            </Link>
+            <Link href="/voice">
+              <Button size="sm" variant="outline" className="border-border hover:bg-muted font-medium text-xs h-8 px-3 text-foreground">
+                <MicIcon className="mr-1.5 size-3.5" />
+                Ask Riley
+              </Button>
+            </Link>
           </div>
         </div>
       </CardContent>

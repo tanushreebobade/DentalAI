@@ -20,24 +20,38 @@ function RecentAppointments() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "CONFIRMED":
-        return <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 hover:bg-blue-100">Confirmed</Badge>;
+        return (
+          <Badge className="bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 font-medium text-xs">
+            Confirmed
+          </Badge>
+        );
       case "COMPLETED":
-        return <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 hover:bg-green-100">Completed</Badge>;
+        return (
+          <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 font-medium text-xs">
+            Completed
+          </Badge>
+        );
       case "CANCELLED":
-        return <Badge variant="destructive">Cancelled</Badge>;
+        return (
+          <Badge className="bg-destructive/10 text-destructive border border-destructive/20 hover:bg-destructive/20 font-medium text-xs">
+            Cancelled
+          </Badge>
+        );
       default:
-        return <Badge variant="secondary">{status}</Badge>;
+        return <Badge variant="secondary" className="text-xs">{status}</Badge>;
     }
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-primary" />
-          Recent Appointments
+    <Card className="border border-border rounded-xl shadow-xs bg-card">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-base font-semibold flex items-center gap-2 text-foreground">
+          <Calendar className="size-4 text-primary" />
+          Patient Appointments
         </CardTitle>
-        <CardDescription>Monitor and manage all patient appointments</CardDescription>
+        <CardDescription className="text-xs text-muted-foreground mt-0.5">
+          Monitor and manage clinic patient schedules and cancellation status
+        </CardDescription>
       </CardHeader>
 
       <CardContent>

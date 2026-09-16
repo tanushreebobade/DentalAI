@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { CheckCircleIcon, MailIcon, CalendarIcon, ClockIcon, UserIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface AppointmentConfirmationModalProps {
@@ -44,25 +43,15 @@ export function AppointmentConfirmationModal({
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Email Notification Section */}
-          <div className="flex flex-col items-center space-y-3">
-            <div className="relative">
-              <Image
-                src="/email-sent.png"
-                alt="Email sent"
-                width={120}
-                height={120}
-                className="mx-auto"
-              />
+          {/* Email Notification Notice */}
+          <div className="flex flex-col items-center justify-center text-center p-4 bg-muted/40 rounded-xl border border-border/60 space-y-2">
+            <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+              <MailIcon className="h-5 w-5" />
             </div>
-
-            <div className="text-center space-y-1">
-              <div className="flex items-center justify-center gap-2 text-sm font-medium text-primary">
-                <MailIcon className="h-4 w-4" />
-                Details sent to your inbox
-              </div>
+            <div>
+              <p className="text-sm font-medium text-foreground">Confirmation Sent to Your Inbox</p>
               {appointmentDetails?.userEmail && (
-                <p className="text-xs text-muted-foreground">{appointmentDetails.userEmail}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{appointmentDetails.userEmail}</p>
               )}
             </div>
           </div>

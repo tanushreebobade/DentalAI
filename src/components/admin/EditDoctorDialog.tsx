@@ -140,7 +140,7 @@ function EditDoctorDialog({ doctor, isOpen, onClose }: EditDoctorDialogProps) {
           </Button>
           <Button
             onClick={handleSave}
-            className="bg-primary hover:bg-primary/90"
+            className="bg-primary hover:bg-primary-hover"
             disabled={updateDoctorMutation.isPending}
           >
             {updateDoctorMutation.isPending ? "Saving..." : "Save Changes"}

@@ -131,7 +131,7 @@ const logo = {
 const logoText = {
   fontSize: "20px",
   fontWeight: "bold",
-  color: "#2563eb",
+  color: "#0F766E",
   margin: "0",
   display: "inline",
   marginLeft: "12px",
@@ -180,7 +180,7 @@ const buttonContainer = {
 };
 
 const button = {
-  backgroundColor: "#2563eb",
+  backgroundColor: "#0F766E",
   borderRadius: "6px",
   color: "#ffffff",
   fontSize: "16px",

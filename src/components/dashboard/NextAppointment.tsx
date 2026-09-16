@@ -2,7 +2,8 @@ import { getUserAppointments } from "@/lib/actions/appointments";
 import { format, isAfter, isSameDay, parseISO } from "date-fns";
 import NoNextAppointments from "./NoNextAppointments";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { CalendarIcon, ClockIcon, UserIcon } from "lucide-react";
+import { CalendarIcon, ClockIcon, UserIcon, ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
 
 async function NextAppointment() {
   const appointments = await getUserAppointments();
@@ -16,80 +17,76 @@ async function NextAppointment() {
       return isUpcoming && appointment.status === "CONFIRMED";
     }) || [];
 
-  // get the next appointment (earliest upcoming one)
   const nextAppointment = upcomingAppointments[0];
 
-  if (!nextAppointment) return <NoNextAppointments />; // no appointments, return nothing
+  if (!nextAppointment) return <NoNextAppointments />;
 
   const appointmentDate = parseISO(nextAppointment.date);
   const formattedDate = format(appointmentDate, "EEEE, MMMM d, yyyy");
   const isToday = isSameDay(appointmentDate, new Date());
 
   return (
-    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-background">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <CalendarIcon className="size-5 text-primary" />
-          Next Appointment
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {/* Status Badge */}
-        <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-primary">
-              {isToday ? "Today" : "Upcoming"}
+    <Card className="border border-border rounded-xl shadow-xs bg-card flex flex-col justify-between">
+      <div>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base font-semibold flex items-center gap-2 text-foreground">
+              <CalendarIcon className="size-4 text-primary" />
+              Next Scheduled Visit
+            </CardTitle>
+            <span
+              className={`text-xs font-medium px-2.5 py-0.5 rounded-full border ${
+                isToday
+                  ? "bg-primary/10 text-primary border-primary/20"
+                  : "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20"
+              }`}
+            >
+              {isToday ? "Today" : "Confirmed"}
             </span>
           </div>
-          <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded">
-            {nextAppointment.status}
-          </span>
-        </div>
+        </CardHeader>
 
-        {/* Appointment Details */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <UserIcon className="size-4 text-primary" />
+        <CardContent className="space-y-4 pt-1">
+          {/* Appointment Details */}
+          <div className="space-y-3 text-xs">
+            <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg border border-border/70">
+              <div className="size-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-primary">
+                <UserIcon className="size-4" />
+              </div>
+              <div>
+                <p className="font-semibold text-sm text-foreground">{nextAppointment.doctorName}</p>
+                <p className="text-muted-foreground mt-0.5">{nextAppointment.reason || "General Consultation"}</p>
+              </div>
             </div>
-            <div>
-              <p className="font-medium text-sm">{nextAppointment.doctorName}</p>
-              <p className="text-xs text-muted-foreground">{nextAppointment.reason}</p>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="p-2.5 bg-muted/30 rounded-lg border border-border/70">
+                <span className="text-muted-foreground block text-[11px]">Date</span>
+                <span className="font-medium text-foreground">
+                  {format(appointmentDate, "MMM d, yyyy")}
+                </span>
+              </div>
+              <div className="p-2.5 bg-muted/30 rounded-lg border border-border/70">
+                <span className="text-muted-foreground block text-[11px]">Time</span>
+                <span className="font-medium text-foreground flex items-center gap-1">
+                  <ClockIcon className="size-3 text-primary" />
+                  {nextAppointment.time}
+                </span>
+              </div>
             </div>
           </div>
+        </CardContent>
+      </div>
 
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <CalendarIcon className="size-4 text-primary" />
-            </div>
-            <div>
-              <p className="font-medium text-sm">{formattedDate}</p>
-              <p className="text-xs text-muted-foreground">
-                {isToday ? "Today" : format(appointmentDate, "EEEE")}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-              <ClockIcon className="size-4 text-primary" />
-            </div>
-            <div>
-              <p className="font-medium text-sm">{nextAppointment.time}</p>
-              <p className="text-xs text-muted-foreground">Local time</p>
-            </div>
-          </div>
-        </div>
-
-        {/* More Appointments Count */}
-        {upcomingAppointments.length > 1 && (
-          <p className="text-xs text-center text-muted-foreground">
-            +{upcomingAppointments.length - 1} more upcoming appointment
-            {upcomingAppointments.length > 2 ? "s" : ""}
-          </p>
-        )}
-      </CardContent>
+      <div className="p-4 pt-0">
+        <Link
+          href="/appointments"
+          className="text-xs font-medium text-primary hover:underline flex items-center justify-between p-2 rounded-md hover:bg-muted transition-colors"
+        >
+          <span>Manage or reschedule appointment</span>
+          <ArrowRightIcon className="size-3.5" />
+        </Link>
+      </div>
     </Card>
   );
 }

@@ -1,148 +1,127 @@
 import { SignUpButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
-import { CalendarIcon, MicIcon, StarIcon } from "lucide-react";
+import { CalendarIcon, CheckCircle2Icon, ClockIcon, MessageSquareIcon, MicIcon, ShieldCheckIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 
 function Hero() {
   return (
-    <section className="relative h-screen flex items-center overflow-hidden pt-20">
-      {/* GRID BG  */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-primary/5">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-20"></div>
-      </div>
+    <section className="relative pt-32 pb-20 md:pt-36 md:pb-28 overflow-hidden bg-background">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="space-y-4">
 
-      {/* GRADIENT ORBS */}
-      <div className="absolute top-20 left-1/4 w-72 h-72 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-r from-primary/15 to-primary/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 w-full px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* LEFT CONTENT */}
-            <div className="space-y-10">
-              <div className="space-y-6">
-                {/* BADGE */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-primary/5 rounded-full border border-primary/20 backdrop-blur-sm">
-                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-primary">
-                    AI-Powered Dental Assistant
-                  </span>
-                </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground leading-[1.15]">
+                Dental care that <br className="hidden sm:inline" />
+                fits your life.
+              </h1>
 
-                {/* MAIN HEADING */}
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-                  <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                    Your dental
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    questions
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                    answered instantly
-                  </span>
-                </h1>
-
-                {/* SUBTITLE */}
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-xl font-medium">
-                  Chat with our AI dental assistant for instant advice, book smart appointments, and
-                  get personalized care recommendations. Available 24/7.
-                </p>
-              </div>
-
-              {/* CTA BUTTONS */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <SignUpButton mode="modal">
-                  <Button size={"lg"}>
-                    <MicIcon className="mr-2 size-5" />
-                    Try voice agent
-                  </Button>
-                </SignUpButton>
-
-                <SignUpButton mode="modal">
-                  <Button size={"lg"} variant={"outline"}>
-                    <CalendarIcon className="mr-2 size-5" />
-                    Book appointment
-                  </Button>
-                </SignUpButton>
-              </div>
-
-              {/* USER TESTIMONIALS */}
-              <div className="pt-8">
-                <div className="flex items-center gap-6">
-                  {/* USER AVATARS */}
-                  <div className="flex -space-x-3">
-                    <Image
-                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face"
-                      alt="Jessica Davis"
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
-                    />
-                    <Image
-                      src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face"
-                      alt="Sam Miller"
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
-                    />
-                    <Image
-                      src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face"
-                      alt="Anna Lopez"
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
-                    />
-                    <Image
-                      src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop&crop=face"
-                      alt="Mike Rodriguez"
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
-                    />
-                    <Image
-                      src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=100&h=100&fit=crop&crop=face"
-                      alt="Katie Lee"
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
-                    />
-                  </div>
-
-                  {/* RATING AND STATS */}
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <StarIcon key={star} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                        ))}
-                      </div>
-                      <span className="text-sm font-bold text-foreground">4.9/5</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Trusted by{" "}
-                      <span className="font-semibold text-foreground">1,200+ patients</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
+                Got a toothache at 2 AM? Talk to Riley, our voice assistant, for quick guidance — then book a dentist when you're ready.
+              </p>
             </div>
 
-            {/* RIGHT CONTENT - HERO IMAGE */}
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <SignUpButton mode="modal">
+                <Button size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground font-medium px-6 py-2.5 h-auto shadow-xs">
+                  <MicIcon className="mr-2 size-4" />
+                  Try Voice Assistant
+                </Button>
+              </SignUpButton>
 
-            <div className="relative lg:pl-8">
-              {/* GRADIENT ORBS */}
-              <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl rotate-45 blur-xl"></div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary/15 to-primary/5 rounded-full blur-2xl"></div>
+              <SignUpButton mode="modal">
+                <Button size="lg" variant="outline" className="font-medium px-6 py-2.5 h-auto border-border hover:bg-muted text-foreground">
+                  <CalendarIcon className="mr-2 size-4" />
+                  Book an Appointment
+                </Button>
+              </SignUpButton>
+            </div>
 
-              <Image
-                src={"/hero.png"}
-                alt="DentalAI"
-                width={600}
-                height={600}
-                className="w-full h-auto"
-              />
+            {/* TRUST INDICATORS */}
+            <div className="pt-4 border-t border-border flex flex-wrap gap-6 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1.5">
+                <ShieldCheckIcon className="size-4 text-emerald-600 dark:text-emerald-400" />
+                <span>Licensed dentists only</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <ClockIcon className="size-4 text-primary" />
+                <span>Available anytime, day or night</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2Icon className="size-4 text-emerald-600 dark:text-emerald-400" />
+                <span>Book appointments in minutes</span>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT CONTENT - REALISTIC CLINICAL INTERFACE PREVIEW */}
+          <div className="lg:col-span-5">
+            <div className="bg-card border border-border rounded-xl shadow-lg p-6 space-y-5">
+              {/* Card Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-border">
+                <div className="flex items-center gap-2.5">
+                  <div className="size-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-semibold text-xs">
+                    D<span className="text-accent-warm">A</span>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-foreground">Voice Assistant</h3>
+                    <p className="text-xs text-muted-foreground">Riley • <span className="text-accent-warm font-medium">Dental Triage</span></p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                  Active
+                </span>
+              </div>
+
+              {/* Consultation Dialogue Preview */}
+              <div className="space-y-3 text-xs leading-relaxed">
+                <div className="bg-muted/50 border border-border/70 rounded-lg p-3">
+                  <span className="font-semibold text-foreground block mb-1">You:</span>
+                  <p className="text-muted-foreground">
+                    "My lower right molar hurts when I drink cold water. Is that something I should worry about?"
+                  </p>
+                </div>
+
+                <div className="bg-primary/5 border border-primary/15 rounded-lg p-3">
+                  <span className="font-semibold text-primary block mb-1">Riley:</span>
+                  <p className="text-muted-foreground">
+                    "That could be minor enamel wear or a small crack. Try a sensitivity toothpaste for now, skip acidic drinks, and I'd recommend booking a checkup just to be safe."
+                  </p>
+                </div>
+              </div>
+
+              {/* Next Available Booking Slot */}
+              <div className="pt-2">
+                <div className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">
+                  Suggested Next Step
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30">
+                  <div className="flex items-center gap-3">
+                    <div className="size-9 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center shrink-0 border border-border">
+                      <Image
+                        src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=120"
+                        alt="Dr. Ananya Sharma"
+                        width={36}
+                        height={36}
+                        className="size-9 rounded-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-foreground">Dr. Ananya Sharma</p>
+                      <p className="text-[11px] text-muted-foreground">General & Cosmetic • Today 2:30 PM</p>
+                    </div>
+                  </div>
+                  <SignUpButton mode="modal">
+                    <Button size="sm" variant="secondary" className="text-xs h-7 px-3 font-medium">
+                      Select
+                    </Button>
+                  </SignUpButton>
+                </div>
+              </div>
             </div>
           </div>
         </div>

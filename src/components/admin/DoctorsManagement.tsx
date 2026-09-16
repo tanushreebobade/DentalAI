@@ -28,82 +28,87 @@ function DoctorsManagement() {
 
   return (
     <>
-      <Card className="mb-12">
-        <CardHeader className="flex items-center justify-between">
+      <Card className="mb-8 border border-border rounded-xl shadow-xs bg-card">
+        <CardHeader className="flex flex-row items-center justify-between pb-4">
           <div>
-            <CardTitle className="flex items-center gap-2">
-              <StethoscopeIcon className="size-5 text-primary" />
-              Doctors Management
+            <CardTitle className="text-base font-semibold flex items-center gap-2 text-foreground">
+              <StethoscopeIcon className="size-4 text-primary" />
+              Clinical Practitioners
             </CardTitle>
-            <CardDescription>Manage and oversee all doctors in your practice</CardDescription>
+            <CardDescription className="text-xs text-muted-foreground mt-0.5">
+              Manage doctor profiles, active roster, and clinic credentials
+            </CardDescription>
           </div>
 
           <Button
             onClick={() => setIsAddDialogOpen(true)}
-            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/100"
+            size="sm"
+            className="bg-primary hover:bg-primary-hover text-primary-foreground font-medium shadow-xs h-8 px-3 text-xs"
           >
-            <PlusIcon className="mr-2 size-4" />
+            <PlusIcon className="mr-1.5 size-3.5" />
             Add Doctor
           </Button>
         </CardHeader>
 
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {doctors.map((doctor) => (
               <div
                 key={doctor.id}
-                className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-muted/20 hover:bg-muted/40 transition-colors rounded-xl border border-border/70"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3.5">
                   <Image
                     src={doctor.imageUrl}
                     alt={doctor.name}
-                    width={48}
-                    height={48}
-                    className="size-12 rounded-full object-cover ring-2 ring-background"
+                    width={44}
+                    height={44}
+                    className="size-11 rounded-lg object-cover border border-border shrink-0"
                   />
 
                   <div>
-                    <div className="font-semibold">{doctor.name}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {doctor.speciality}
-
-                      <span className="ml-2 px-2 py-0.5 bg-muted rounded text-xs">
-                        {doctor.gender === "MALE" ? "Male" : "Female"}
-                      </span>
+                    <div className="font-semibold text-sm text-foreground">{doctor.name}</div>
+                    <div className="text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5">
+                      <span>{doctor.speciality}</span>
+                      <span>•</span>
+                      <span className="capitalize">{doctor.gender.toLowerCase()}</span>
                     </div>
 
-                    <div className="flex items-center gap-4 mt-1">
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <MailIcon className="h-3 w-3" />
-                        {doctor.email}
+                    <div className="flex flex-wrap items-center gap-3 mt-1 text-[11px] text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <MailIcon className="size-3" />
+                        <span>{doctor.email}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <PhoneIcon className="h-3 w-3" />
-                        {doctor.phone}
+                      <div className="flex items-center gap-1">
+                        <PhoneIcon className="size-3" />
+                        <span>{doctor.phone}</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="text-center">
-                    <div className="font-semibold text-primary">{doctor.appointmentCount}</div>
-                    <div className="text-xs text-muted-foreground">Appointments</div>
+                <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-border/50">
+                  <div className="text-left sm:text-right pr-2">
+                    <div className="font-semibold text-sm text-foreground">{doctor.appointmentCount}</div>
+                    <div className="text-[11px] text-muted-foreground">Bookings</div>
                   </div>
 
                   {doctor.isActive ? (
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Active</Badge>
+                    <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 font-medium text-xs">
+                      Active
+                    </Badge>
                   ) : (
-                    <Badge variant="secondary">Inactive</Badge>
+                    <Badge variant="secondary" className="text-xs">
+                      Inactive
+                    </Badge>
                   )}
                   <Button
                     size="sm"
                     variant="outline"
-                    className="h-8 px-3"
+                    className="h-8 px-3 text-xs border-border hover:bg-muted"
                     onClick={() => handleEditDoctor(doctor)}
                   >
-                    <EditIcon className="size-4 mr-1" />
+                    <EditIcon className="size-3.5 mr-1" />
                     Edit
                   </Button>
                 </div>

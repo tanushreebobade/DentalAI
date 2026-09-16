@@ -4,7 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import UserSync from "@/components/UserSync";
 import TanStackProvider from "@/components/providers/TanStackProvider";
-import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DentalAI - AI Powered Dental Assistant",
+  title: "DentalAI - Modern Dental Care & Triage",
   description:
-    "Get instant dental advice through voice calls with our AI assistant. Available 24/7.",
+    "Instant dental symptom triage, clinical voice guidance, and appointment booking with verified dentists.",
 };
 
 export default function RootLayout({
@@ -28,27 +29,43 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <TanStackProvider>
-      <ClerkProvider
-        appearance={{
-          variables: {
-            colorPrimary: "#e78a53",
-            colorBackground: "#f3f4f6",
-            colorText: "#111827",
-            colorTextSecondary: "#6b7280",
-            colorInputBackground: "#f3f4f6",
-          },
-        }}
-      >
-        <html lang="en">
-          <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}>
-            {/* this is done in the home page component */}
-            {/* <UserSync /> */}
-            <Toaster />
-            {children}
-          </body>
-        </html>
-      </ClerkProvider>
-    </TanStackProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased text-foreground bg-background selection:bg-primary/15 selection:text-primary min-h-screen`}>
+        <TanStackProvider>
+          <ClerkProvider
+            appearance={{
+              variables: {
+                colorPrimary: "#0F766E",
+                colorDanger: "#dc2626",
+                colorSuccess: "#16a34a",
+                colorWarning: "#ca8a04",
+                colorNeutral: "#1e293b",
+                colorText: "#1e293b",
+                colorTextOnPrimaryBackground: "#ffffff",
+                colorTextSecondary: "#64748b",
+                colorBackground: "#ffffff",
+                colorInputBackground: "#ffffff",
+                colorInputText: "#1e293b",
+              },
+              elements: {
+                userButtonPopoverCard: "shadow-lg border border-[#e2e8f0]",
+                userButtonPopoverFooter: "hidden",
+              },
+            }}
+          >
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <UserSync />
+              <Toaster position="top-right" />
+              {children}
+            </ThemeProvider>
+          </ClerkProvider>
+        </TanStackProvider>
+      </body>
+    </html>
   );
 }

@@ -4,43 +4,42 @@ const prisma = new PrismaClient();
 
 const sampleDoctors = [
   {
-    name: "Dr. Sarah Mitchell",
-    email: "sarah.mitchell@dentwise.com",
-    phone: "+1 (555) 234-5678",
+    name: "Dr. Ananya Sharma",
+    email: "ananya.sharma@dentalai.com",
+    phone: "+91 98765 43210",
     speciality: "General & Cosmetic Dentistry",
-    bio: "Over 12 years of experience in restorative and aesthetic dentistry with gentle care.",
+    bio: "Experienced in restorative and cosmetic dentistry with a focus on comfortable, patient-centered care.",
     imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300",
     gender: Gender.FEMALE,
     isActive: true,
   },
   {
-    name: "Dr. James Wilson",
-    email: "james.wilson@dentwise.com",
-    phone: "+1 (555) 876-5432",
-    speciality: "Orthodontist",
-    bio: "Specialist in braces, clear aligners, and bite correction for teens and adults.",
-    imageUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=300",
+    name: "Dr. Rahul Mehta",
+    email: "rahul.mehta@dentalai.com",
+    phone: "+91 98234 56789",
+    speciality: "Orthodontics",
+    bio: "Specialist in braces, clear aligners, and bite correction for teenagers and adults.",
+    imageUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1170&auto=format&fit=crop",
     gender: Gender.MALE,
     isActive: true,
   },
   {
-    name: "Dr. Elena Rostova",
-    email: "elena.rostova@dentwise.com",
-    phone: "+1 (555) 345-6789",
+    name: "Dr. Priya Deshmukh",
+    email: "priya.deshmukh@dentalai.com",
+    phone: "+91 97654 32109",
     speciality: "Pediatric Dentistry & Implants",
-    bio: "Passionate about pain-free dental procedures and preventive oral healthcare.",
-    imageUrl: "https://images.unsplash.com/photo-1594824813627-995b0bfcf693?auto=format&fit=crop&q=80&w=300",
+    bio: "Focused on gentle dental care, preventive treatments, and comfortable procedures for patients of all ages.",
+    imageUrl: "https://images.unsplash.com/photo-1576495199011-eb5f3fa6f5d0?auto=format&fit=crop&q=80&w=300",
     gender: Gender.FEMALE,
     isActive: true,
   },
 ];
-
 async function main() {
   console.log("Seeding doctors...");
   for (const doc of sampleDoctors) {
     await prisma.doctor.upsert({
       where: { email: doc.email },
-      update: {},
+      update: doc,
       create: doc,
     });
   }
