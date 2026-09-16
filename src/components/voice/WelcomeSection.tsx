@@ -5,10 +5,6 @@ function WelcomeSection() {
     <div className="bg-card border border-border rounded-xl p-6 sm:p-8 shadow-xs mb-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 text-xs font-medium text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
-            <MicIcon className="size-3" />
-            <span>Clinical Audio Consultation</span>
-          </div>
 
           <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
             Voice Consultation Console
